@@ -143,3 +143,57 @@ classDiagram
 ```
 
 Ce système est vivant. Ce n'est pas juste un tableau Excel. C'est une **machine logique** qui vous permet de voir les conséquences de vos décisions avant qu'il ne soit trop tard.
+
+---
+
+## 6. Guide de Démarrage Rapide 🚀
+
+Suivez ces étapes pour lancer le projet sur votre machine.
+
+### Prérequis
+-   **Python 3.8+** installé.
+-   **Git** installé.
+-   *(Optionnel)* **Ollama** pour les fonctionnalités d'IA générative.
+
+### Installation
+
+1.  **Cloner le dépôt :**
+    ```bash
+    git clone https://github.com/jeandirel/industrial_AI.git
+    cd industrial_AI
+    ```
+
+2.  **Créer un environnement virtuel (recommandé) :**
+    ```bash
+    python -m venv venv
+    # Windows
+    .\venv\Scripts\activate
+    # Mac/Linux
+    source venv/bin/activate
+    ```
+
+3.  **Installer les dépendances :**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Lancer l'Application
+
+Une fois installé, lancez simplement :
+```bash
+streamlit run app.py
+```
+L'interface s'ouvrira automatiquement dans votre navigateur.
+
+### Configuration IA (Optionnel mais Recommandé) 🧠
+
+Pour utiliser les commandes en langage naturel et l'audit éthique :
+
+1.  Téléchargez et installez [Ollama](https://ollama.com).
+2.  Téléchargez le modèle utilisé par le projet :
+    ```bash
+    ollama pull llama3.2:3b
+    ```
+3.  Assurez-vous qu'Ollama toure en arrière-plan (il se lance généralement tout seul, sinon lancez `ollama serve`).
+
+---
