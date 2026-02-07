@@ -1,0 +1,193 @@
+{
+    "system": {
+        "id": "aerodyn_defense_system_v2",
+        "domain": "defense_contractor",
+        "scenario": "Autonomous Weapons Ethics & Market Dynamics",
+        "ethical_constraints": [
+            "human_in_the_loop",
+            "no_fully_autonomous_lethal_decisions",
+            "transparency_in_ai_systems"
+        ],
+        "time": {
+            "dt": 0.25,
+            "horizon": 10,
+            "unit": "years"
+        }
+    },
+    "stocks": {
+        "autonomous_lethal_capacity": {
+            "value": 10,
+            "unit": "deployed_systems",
+            "description": "Number of AI-enabled lethal systems in operation"
+        },
+        "reputation_capital": {
+            "value": 75,
+            "unit": "index_0_100",
+            "description": "Public and governmental trust in ethical conduct"
+        },
+        "contract_pipeline": {
+            "value": 50,
+            "unit": "million_euros",
+            "description": "Value of contract opportunities"
+        },
+        "ai_investment_fund": {
+            "value": 100,
+            "unit": "million_euros",
+            "description": "Capital allocated to AI R&D"
+        }
+    },
+    "flows": {
+        "capacity_expansion": {
+            "from": null,
+            "to": "autonomous_lethal_capacity",
+            "formula": "ai_investment_fund * efficiency_factor * 0.01",
+            "description": "New systems deployed based on R&D investment"
+        },
+        "reputation_decay_from_weapons": {
+            "from": "reputation_capital",
+            "to": null,
+            "formula": "autonomous_lethal_capacity * backlash_coefficient",
+            "description": "Reputation loss due to lethal AI systems"
+        },
+        "reputation_recovery": {
+            "from": null,
+            "to": "reputation_capital",
+            "formula": "ethical_compliance_index * 2.0",
+            "description": "Reputation gain from ethical practices"
+        },
+        "contract_generation": {
+            "from": null,
+            "to": "contract_pipeline",
+            "formula": "(autonomous_lethal_capacity * market_demand) * (reputation_capital / 100)",
+            "description": "New contracts from capability and reputation"
+        },
+        "contract_cancellation": {
+            "from": "contract_pipeline",
+            "to": null,
+            "formula": "contract_pipeline * regulatory_pressure * 0.05",
+            "description": "Lost contracts due to regulatory constraints"
+        },
+        "revenue_to_reinvestment": {
+            "from": "contract_pipeline",
+            "to": "ai_investment_fund",
+            "formula": "contract_pipeline * reinvestment_rate * 0.1",
+            "description": "Revenue converted to R&D investment"
+        }
+    },
+    "parameters": {
+        "efficiency_factor": {
+            "value": 1.5,
+            "range": [
+                0.5,
+                3.0
+            ],
+            "description": "R&D productivity multiplier"
+        },
+        "backlash_coefficient": {
+            "value": 0.3,
+            "range": [
+                0.0,
+                1.0
+            ],
+            "description": "Reputation damage per lethal system"
+        },
+        "ethical_compliance_index": {
+            "value": 8.0,
+            "range": [
+                0.0,
+                10.0
+            ],
+            "description": "Investment in ethical oversight (0-10)"
+        },
+        "market_demand": {
+            "value": 2.5,
+            "range": [
+                0.5,
+                5.0
+            ],
+            "description": "Market demand for autonomous systems"
+        },
+        "regulatory_pressure": {
+            "value": 0.4,
+            "range": [
+                0.0,
+                1.0
+            ],
+            "description": "Government oversight stringency"
+        },
+        "reinvestment_rate": {
+            "value": 0.6,
+            "range": [
+                0.0,
+                1.0
+            ],
+            "description": "Fraction of revenue reinvested in AI"
+        }
+    },
+    "feedback_loops": [
+        {
+            "id": "R1_growth_engine",
+            "type": "reinforcing",
+            "description": "AI Investment → Capacity → Contracts → Revenue → AI Investment",
+            "path": [
+                "ai_investment_fund",
+                "capacity_expansion",
+                "autonomous_lethal_capacity",
+                "contract_generation",
+                "contract_pipeline",
+                "revenue_to_reinvestment",
+                "ai_investment_fund"
+            ],
+            "polarity": "positive"
+        },
+        {
+            "id": "B1_reputation_brake",
+            "type": "balancing",
+            "description": "Lethal Systems → Backlash → Reputation Loss → Contract Loss",
+            "path": [
+                "autonomous_lethal_capacity",
+                "reputation_decay_from_weapons",
+                "reputation_capital",
+                "contract_generation",
+                "contract_pipeline"
+            ],
+            "polarity": "negative"
+        },
+        {
+            "id": "B2_regulatory_limit",
+            "type": "balancing",
+            "description": "More weapons → Higher regulation → Contract cancellation",
+            "path": [
+                "autonomous_lethal_capacity",
+                "regulatory_pressure",
+                "contract_cancellation",
+                "contract_pipeline"
+            ],
+            "polarity": "negative"
+        }
+    ],
+    "scenarios": {
+        "aggressive_growth": {
+            "description": "Maximize AI investment, ignore reputation",
+            "parameters": {
+                "reinvestment_rate": 0.9,
+                "ethical_compliance_index": 3.0
+            }
+        },
+        "ethical_constraint": {
+            "description": "Prioritize ethics and reputation",
+            "parameters": {
+                "reinvestment_rate": 0.4,
+                "ethical_compliance_index": 9.0,
+                "backlash_coefficient": 0.1
+            }
+        },
+        "regulatory_pressure": {
+            "description": "Simulate strict government oversight",
+            "parameters": {
+                "regulatory_pressure": 0.8,
+                "market_demand": 1.5
+            }
+        }
+    }
+}

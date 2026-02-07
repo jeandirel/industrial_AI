@@ -1,0 +1,79 @@
+{
+  "system": {
+    "id": "aerolya_defense_system_v1",
+    "domain": "defense",
+    "ethical_constraints": [
+      "human_in_the_loop",
+      "no_autonomous_lethal_decision"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "surveillance_sensor_01",
+      "type": "sensor",
+      "status": "active",
+      "parameters": {
+        "range_km": 120,
+        "refresh_rate_s": 5,
+        "sensitivity": 0.7
+      },
+      "state": {
+        "raw_signal_strength": 0.0,
+        "detection_event": false
+      },
+      "methods": [
+        "scan_area",
+        "filter_noise"
+      ]
+    },
+    {
+      "id": "target_identification_ai",
+      "type": "ai_process",
+      "status": "active",
+      "parameters": {
+        "model_version": "vision-transformer-v3",
+        "min_confidence": 0.9,
+        "processing_latency_ms": 200
+      },
+      "state": {
+        "identified_object": "none",
+        "confidence_score": 0.0,
+        "threat_level": "unknown"
+      },
+      "methods": [
+        "classify_target",
+        "assess_threat"
+      ]
+    },
+    {
+      "id": "decision_support",
+      "type": "logic_unit",
+      "status": "active",
+      "parameters": {
+        "auto_approval_threshold": 0.99,
+        "requires_human_verification": true
+      },
+      "state": {
+        "review_status": "idle",
+        "action_recommendation": "monitor"
+      },
+      "methods": [
+        "evaluate_rules"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "surveillance_sensor_01",
+      "to": "target_identification_ai",
+      "condition": "detection_event == true",
+      "data_flow": "raw_signal"
+    },
+    {
+      "from": "target_identification_ai",
+      "to": "decision_support",
+      "condition": "confidence_score >= 0.5",
+      "data_flow": "classification_result"
+    }
+  ]
+}

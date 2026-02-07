@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroDyn Model Factory - Documentation Système</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #475569;
+            --bg: #ffffff;
+            --text: #0f172a;
+            --card-bg: #f8fafc;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 { margin: 0; font-size: 2.5em; font-weight: 800; }
+        h2 { color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 10px; margin-top: 50px; }
+        h3 { color: var(--secondary); margin-top: 30px; }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        code {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        .img-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+        .analogy {
+            background: #ecfdf5;
+            border-left: 5px solid #10b981;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .mermaid { margin: 30px 0; display: flex; justify-content: center;}
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>✈️ AeroDyn Model Factory</h1>
+        <p>Documentation Technique & Stratégique</p>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>0. L'Objectif du Système 🎯</h2>
+        <p><strong>"Un Simulateur de Vol pour la Stratégie"</strong></p>
+        <p>Imaginez que vous pilotez un avion complexe (votre entreprise). Vous ne voulez pas tester une nouvelle manœuvre risquée en plein vol avec de vrais passagers.</p>
+        <p>Ce système permet de :</p>
+        <ol>
+            <li><strong>Modéliser la réalité</strong> : Créer une copie virtuelle de votre entreprise (réputation, contrats, capacités).</li>
+            <li><strong>Tester le futur</strong> : Si je change ma stratégie éthique aujourd'hui, que se passera-t-il dans 5 ans ?</li>
+            <li><strong>Voir l'invisible</strong> : Comprendre les effets secondaires (les "boucles de rétroaction").</li>
+        </ol>
+    </div>
+
+    <h2>1. La Structure des Données 🔧</h2>
+    <p>Le système repose sur la <strong>Dynamique des Systèmes</strong> (Stocks & Flux).</p>
+
+    <div class="analogy">
+        <strong>💡 L'Analogie Plomberie :</strong> Imaginez des baignoires (Stocks) reliées par des tuyaux (Flux).
+    </div>
+
+    <h3>A. Les Stocks (Réservoirs) 🛢️</h3>
+    <p>L'état du système à un instant T.</p>
+    <pre>{
+    "reputation_capital": {
+        "value": 75,
+        "unit": "index_0_100",
+        "description": "Confiance du public"
+    }
+}</pre>
+
+    <h3>B. Les Flows (Tuyaux) 🚰</h3>
+    <p>Ce qui fait varier les stocks (débit). Ils contiennent la logique mathématique.</p>
+    <pre>{
+    "reputation_decay": {
+        "from": "reputation_capital",
+        "to": null,
+        "formula": "autonomous_lethal_capacity * backlash_coefficient"
+    }
+}</pre>
+
+    <div class="img-container">
+        <img src="assets/model_builder.png" alt="Interface de construction du modèle">
+        <p><em>Fig 1. L'interface "Model Builder" permet d'ajouter ces Stocks et Flux manuellement.</em></p>
+    </div>
+
+    <h2>2. L'IA (Ollama) : Le Copilote 🧠</h2>
+    <p>L'IA agit comme un architecte qui traduit vos demandes en structure JSON.</p>
+    <ul>
+        <li><strong>Entrée</strong> : "Je veux investir dans la pub."</li>
+        <li><strong>Traitement</strong> : L'IA comprend qu'il faut un Flux positif vers la Réputation.</li>
+        <li><strong>Sortie</strong> : Elle écrit le JSON nécessaire (voir ci-dessus) et le moteur l'exécute.</li>
+    </ul>
+
+    <h2>3. Scénarios & Paramètres ⚙️</h2>
+    <p>Les "Profils" sont des configurations pré-enregistrées pour simuler des stratégies types.</p>
+    
+    <div class="img-container">
+        <img src="assets/scenarios.png" alt="Sélection de scénarios">
+        <p><em>Fig 2. Menu de sélection des profils (Aggressive Growth, Ethical Constraint, etc.).</em></p>
+    </div>
+
+    <h2>4. Architecture du Projet 🏗️</h2>
+    <p>Le flux de données va du fichier JSON vers l'écran, piloté par le moteur Python.</p>
+    
+    <div class="card">
+        <h3>Le Flux d'Interaction</h3>
+        <ol>
+            <li><strong>Lecture</strong> : Le `Moteur` lit le `Fichier JSON`.</li>
+            <li><strong>Simulation</strong> : Le moteur fait tourner le temps (Année 1...10).</li>
+            <li><strong>Affichage</strong> : L' `Interface` Streamlit affiche les courbes.</li>
+            <li><strong>Modification</strong> : L'utilisateur change un paramètre -> Le moteur recalcule instantanément.</li>
+        </ol>
+    </div>
+
+</div>
+
+</body>
+</html>
